@@ -6,6 +6,14 @@ class TestCalculator(unittest.TestCase):
         calc = Calculator();
         self.assertEqual(calc.add(""), 0);
         
+    def test_single_number(self):
+        calc = Calculator();
+        self.assertEqual(calc.add("1"), 1);
+        
+    def testmultiple_numbers(self):
+        calc = Calculator();
+        self.assertEqual(calc.add("1,2,3"), 6);
+        
     def test_newline_between_numbers(self):
         calc = Calculator();
         self.assertEqual(calc.add("1\n2,3"), 6);
