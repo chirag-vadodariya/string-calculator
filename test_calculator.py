@@ -18,15 +18,27 @@ class TestCalculator(unittest.TestCase):
         calc = Calculator();
         self.assertEqual(calc.add("1\n2,3"), 6);
         
-    def testCustomDelimiter(self):
+    def test_custom_delimiter(self):
         calc = Calculator();
         self.assertEqual(calc.add("//;\n1;2"), 3);
         
-    def testNegativeNumbers(self):
+    def test_negative_numbers(self):
         calc = Calculator();
         with self.assertRaises(ValueError) as exc_info:
             calc.add("-1,2,-3");
         self.assertEqual(str(exc_info.exception), "Negatives not allowed: -1, -3");
+    
+    def test_ignore_numbers_greater_than_1000(self):
+        calc = Calculator();
+        self.assertEqual(calc.add("1001,2"), 2);
+        
+    def test_delimiters_of_any_length(self):
+        calc = Calculator();
+        self.assertEqual(calc.add("//[***]\n1***2***3"), 6);
+        
+    def test_multiple_delimiters(self):
+        calc = Calculator();
+        self.assertEqual(calc.add("//[*][%]\n1*2%3"), 6);
         
 if __name__ == '__main__':
     unittest.main();
